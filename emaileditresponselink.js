@@ -34,10 +34,9 @@ function processTitleResponse(formResponse) {
     }
     titleResponseList.push(title, ':\n', response, '\n\n');
   }
-  var titleResponseString = titleResponseList.join('');
   return {
     respondentEmail: respondentEmail,
-    titleResponseString: titleResponseString,
+    titleResponseList: titleResponseList,
   };
 }
 
@@ -46,10 +45,8 @@ function collectData(form, formResponse) {
   data.formTitle = form.getTitle();
   var titleResponseResult = processTitleResponse(formResponse);
   var editResponseUrl = formResponse.getEditResponseUrl();
-  data.emailBody = [
-    titleResponseResult.titleResponseString,
-    'edit link:\n', editResponseUrl, '\n'
-  ].join('');
+  data.emailBody = titleResponseResult.titleResponseList.concat(
+      ['edit link:\n', editResponseUrl, '\n']).join('');
   data.respondentEmail = titleResponseResult.respondentEmail;
   data.effectiveUserEmail = Session.getEffectiveUser().getEmail();
   return data
