@@ -8,6 +8,19 @@ To Public License, Version 2, as published by Sam Hocevar. See
 http://www.wtfpl.net/ for more details.
 */
 
+/*
+google form script to email response and edit link to creator and respondent.
+
+https://github.com/lesmana/google-form-email-edit-response-link
+
+this script is meant to be attached to a google form.
+
+furthermore it should be attached to a on form submit trigger.
+
+it will send an email to the form creator and to the respondent
+for every form response submitted.
+*/
+
 function processTitleResponse(formResponse) {
   var respondentEmail = '';
   var titleResponseList = [];
