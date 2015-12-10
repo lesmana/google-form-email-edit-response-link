@@ -37,7 +37,7 @@ function processTitleResponse(formResponse) {
   var titleResponseString = titleResponseList.join('');
   return {
     respondentEmail: respondentEmail,
-    titleResponseString: titleResponseList,
+    titleResponseString: titleResponseString,
   };
 }
 
