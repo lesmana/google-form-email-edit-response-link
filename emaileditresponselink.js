@@ -94,3 +94,18 @@ function emailConfirmationToRespondent(e) {
   emailRespondent(data);
 }
 
+function emailOne(form, formResponse) {
+  var data = collectData(form, formResponse);
+  emailFormCreator(data);
+  emailRespondent(data);
+}
+
+function emailAll() {
+  var form = FormApp.getActiveForm();
+  var formResponses = form.getResponses();
+  for (var i = 0; i < formResponses.length; i++) {
+    var formResponse = formResponses[i];
+    emailOne(form, formResponse);
+  }
+}
+
