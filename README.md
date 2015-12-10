@@ -18,7 +18,7 @@ it will install a trigger which activates when someone submits a response.
 License
 -------
 
-Copyright (C) 2015 Lesmana Zimmer
+Copyright 2015 Lesmana Zimmer
 
 This program is free software. It comes without any warranty, to
 the extent permitted by applicable law. You can redistribute it
