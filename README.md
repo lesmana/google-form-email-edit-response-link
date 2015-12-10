@@ -18,7 +18,7 @@ it will install a trigger which activates when someone submits a response.
 License
 -------
 
-Copyright (C) 2015 Lesmana Zimmer <lesmana@gmx.de>
+Copyright (C) 2015 Lesmana Zimmer
 
 This work is free. You can redistribute it and/or modify it under the
 terms of the Do What The Fuck You Want To Public License, Version 2,
