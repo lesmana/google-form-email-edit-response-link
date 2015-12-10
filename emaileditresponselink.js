@@ -89,9 +89,7 @@ function emailRespondent(data) {
 function emailConfirmationToRespondent(e) {
   var form = e.source;
   var formResponse = e.response;
-  var data = collectData(form, formResponse);
-  emailFormCreator(data);
-  emailRespondent(data);
+  emailOne(form, formResponse);
 }
 
 function emailOne(form, formResponse) {
