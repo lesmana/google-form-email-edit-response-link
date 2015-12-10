@@ -36,10 +36,20 @@ function emailOneOnFormSubmit(e) {
   emailOne(form, formResponse);
 }
 
+function deleteAllProperties() {
+  var scriptProperties = PropertiesService.getScriptProperties();
+  scriptProperties.deleteAllProperties();
+}
+
 function emailOne(form, formResponse) {
   var data = collectData(form, formResponse);
-  emailFormCreator(data);
-  emailRespondent(data);
+  var scriptProperties = PropertiesService.getScriptProperties();
+  var doneEmailed = scriptProperties.getProperty(data.responseId);
+  if (doneEmailed != 'done') {
+    emailFormCreator(data);
+    emailRespondent(data);
+    scriptProperties.setProperty(data.responseId, 'done');
+  }
 }
 
 function collectFormData(form) {
@@ -54,6 +64,7 @@ function collectFormResponseData(formResponse) {
   var respondentEmail = '';
   var titleResponseList = [];
   var editResponseUrl = formResponse.getEditResponseUrl();
+  var responseId = formResponse.getId();
   var itemResponses = formResponse.getItemResponses();
   for (var i = 0; i < itemResponses.length; i++) {
     var itemResponse = itemResponses[i];
@@ -67,7 +78,8 @@ function collectFormResponseData(formResponse) {
   var formResponseData = {
     respondentEmail: respondentEmail,
     titleResponseList: titleResponseList,
-    editResponseUrl: editResponseUrl
+    editResponseUrl: editResponseUrl,
+    responseId: responseId,
   };
   return formResponseData
 }
@@ -82,7 +94,8 @@ function collectData(form, formResponse) {
     formTitle: formData.formTitle,
     emailBody: emailBody,
     respondentEmail: formResponseData.respondentEmail,
-    effectiveUserEmail: effectiveUserEmail
+    effectiveUserEmail: effectiveUserEmail,
+    responseId: formResponseData.responseId,
   };
   return data;
 }
