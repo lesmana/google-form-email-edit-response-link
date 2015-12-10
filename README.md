@@ -1,7 +1,7 @@
-Google Form Email Notification
-==============================
+Google Form Email Edit Response Link
+====================================
 
-A google form script to email notifications to respondent and creator.
+A google form script to email response and edit link to respondent and creator.
 
 Installation
 ------------
