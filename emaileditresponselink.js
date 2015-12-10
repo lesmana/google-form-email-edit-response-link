@@ -16,7 +16,7 @@ function onOpen() {
 
 function processTitleResponse(formResponse) {
   var respondentEmail = '';
-  var emailBodyList = [];
+  var titleResponseList = [];
   var itemResponses = formResponse.getItemResponses();
   for (var i = 0; i < itemResponses.length; i++) {
     var itemResponse = itemResponses[i];
@@ -25,12 +25,12 @@ function processTitleResponse(formResponse) {
     if (title == 'Email') {
       respondentEmail = response
     }
-    emailBodyList.push(title, ':\n', response, '\n\n');
+    titleResponseList.push(title, ':\n', response, '\n\n');
   }
-  var emailBody = emailBodyList.join('');
+  var titleResponseString = titleResponseList.join('');
   return {
     respondentEmail: respondentEmail,
-    emailBody: emailBody,
+    titleResponseString: titleResponseList,
   };
 }
 
@@ -40,7 +40,7 @@ function collectData(form, formResponse) {
   var titleResponseResult = processTitleResponse(formResponse);
   var editResponseUrl = formResponse.getEditResponseUrl();
   data.emailBody = [
-    titleResponseResult.emailBody,
+    titleResponseResult.titleResponseString,
     'edit link:\n', editResponseUrl, '\n'
   ].join('');
   data.respondentEmail = titleResponseResult.respondentEmail;
