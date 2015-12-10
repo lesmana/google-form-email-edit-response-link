@@ -21,9 +21,18 @@ it will send an email to the form creator and to the respondent
 for every form response submitted.
 */
 
-function processTitleResponse(formResponse) {
+function collectFormData(form) {
+  var formTitle = form.getTitle();
+  var formData = {
+    formTitle: formTitle
+  };
+  return formData;
+}
+
+function collectFormResponseData(formResponse) {
   var respondentEmail = '';
   var titleResponseList = [];
+  var editResponseUrl = formResponse.getEditResponseUrl();
   var itemResponses = formResponse.getItemResponses();
   for (var i = 0; i < itemResponses.length; i++) {
     var itemResponse = itemResponses[i];
@@ -34,22 +43,27 @@ function processTitleResponse(formResponse) {
     }
     titleResponseList.push(title, ':\n', response, '\n\n');
   }
-  return {
+  var formResponseData = {
     respondentEmail: respondentEmail,
     titleResponseList: titleResponseList,
+    editResponseUrl: editResponseUrl
   };
+  return formResponseData
 }
 
 function collectData(form, formResponse) {
-  var data = {}
-  data.formTitle = form.getTitle();
-  var titleResponseResult = processTitleResponse(formResponse);
-  var editResponseUrl = formResponse.getEditResponseUrl();
-  data.emailBody = titleResponseResult.titleResponseList.concat(
-      ['edit link:\n', editResponseUrl, '\n']).join('');
-  data.respondentEmail = titleResponseResult.respondentEmail;
-  data.effectiveUserEmail = Session.getEffectiveUser().getEmail();
-  return data
+  var formData = collectFormData(form);
+  var formResponseData = collectFormResponseData(formResponse);
+  var effectiveUserEmail = Session.getEffectiveUser().getEmail();
+  var emailBody = formResponseData.titleResponseList.concat(
+      ['edit link:\n', formResponseData.editResponseUrl, '\n']).join('');
+  var data = {
+    formTitle: formData.formTitle,
+    emailBody: emailBody,
+    respondentEmail: formResponseData.respondentEmail,
+    effectiveUserEmail: effectiveUserEmail
+  };
+  return data;
 }
 
 function emailFormCreator(data) {
