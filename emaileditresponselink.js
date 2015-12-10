@@ -14,38 +14,18 @@ function onOpen() {
       .create();
 }
 
-function titleResponseIterator(formResponse) {
-  var itemResponses = formResponse.getItemResponses();
-  var index = 0;
-  var iterator = {
-    next: function() {
-      if (index < itemResponses.length) {
-        var itemResponse = itemResponses[index];
-        index++;
-        var title = itemResponse.getItem().getTitle();
-        var response = itemResponse.getResponse();
-        return {value: {title: title, response: response}, done: false};
-      } else {
-        return {done: true};
-      }
-    }
-  }
-  return iterator;
-}
-
 function processTitleResponse(formResponse) {
   var respondentEmail = '';
   var emailBodyList = [];
-  var iterator = titleResponseIterator(formResponse);
-  var titleResponse = iterator.next();
-  while (!titleResponse.done) {
-    title = titleResponse.value.title;
-    response = titleResponse.value.response;
+  var itemResponses = formResponse.getItemResponses();
+  for (var i = 0; i < itemResponses.length; i++) {
+    var itemResponse = itemResponses[i];
+    var title = itemResponse.getItem().getTitle();
+    var response = itemResponse.getResponse();
     if (title == 'Email') {
       respondentEmail = response
     }
     emailBodyList.push(title, ':\n', response, '\n\n');
-    titleResponse = iterator.next();
   }
   var emailBody = emailBodyList.join('');
   return {
