@@ -8,7 +8,7 @@ Installation
 
 * create a google form.
 * open script editor.
-* copy the code of emailnotification.js and paste it in the script editor.
+* copy the code and paste it in the script editor.
 * save the script under some sensible name.
 
 now either close and reopen the spreadsheet
