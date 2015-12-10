@@ -86,7 +86,7 @@ function emailRespondent(data) {
   MailApp.sendEmail(recipient, subject, body);
 }
 
-function emailConfirmationToRespondent(e) {
+function emailOneOnFormSubmit(e) {
   var form = e.source;
   var formResponse = e.response;
   emailOne(form, formResponse);
