@@ -21,6 +21,27 @@ it will send an email to the form creator and to the respondent
 for every form response submitted.
 */
 
+function emailAll() {
+  var form = FormApp.getActiveForm();
+  var formResponses = form.getResponses();
+  for (var i = 0; i < formResponses.length; i++) {
+    var formResponse = formResponses[i];
+    emailOne(form, formResponse);
+  }
+}
+
+function emailOneOnFormSubmit(e) {
+  var form = e.source;
+  var formResponse = e.response;
+  emailOne(form, formResponse);
+}
+
+function emailOne(form, formResponse) {
+  var data = collectData(form, formResponse);
+  emailFormCreator(data);
+  emailRespondent(data);
+}
+
 function collectFormData(form) {
   var formTitle = form.getTitle();
   var formData = {
@@ -84,26 +105,5 @@ function emailRespondent(data) {
   var subject = ['Your response: ', data.formTitle].join('');
   var body = data.emailBody;
   MailApp.sendEmail(recipient, subject, body);
-}
-
-function emailOneOnFormSubmit(e) {
-  var form = e.source;
-  var formResponse = e.response;
-  emailOne(form, formResponse);
-}
-
-function emailOne(form, formResponse) {
-  var data = collectData(form, formResponse);
-  emailFormCreator(data);
-  emailRespondent(data);
-}
-
-function emailAll() {
-  var form = FormApp.getActiveForm();
-  var formResponses = form.getResponses();
-  for (var i = 0; i < formResponses.length; i++) {
-    var formResponse = formResponses[i];
-    emailOne(form, formResponse);
-  }
 }
 
