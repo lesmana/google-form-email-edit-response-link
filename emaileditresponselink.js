@@ -48,6 +48,19 @@ function collectData(form, formResponse) {
   return data
 }
 
+function emailFormCreator(data) {
+  var recipient = data.effectiveUserEmail;
+  var subject = ['Response: ', data.formTitle].join('');
+  var body = [
+    'someone responded to the form: ', data.formTitle, '\n',
+    '\n',
+    'they will be sent this email:\n',
+    '\n',
+    data.emailBody
+  ].join('');
+  MailApp.sendEmail(recipient, subject, body);
+}
+
 function emailRespondent(data) {
   var recipient = data.respondentEmail;
   var subject = ['Your response: ', data.formTitle].join('');
@@ -55,24 +68,11 @@ function emailRespondent(data) {
   MailApp.sendEmail(recipient, subject, body);
 }
 
-function emailFormCreator(data) {
-  var recipient = data.effectiveUserEmail;
-  var subject = ['Response: ', data.formTitle].join('');
-  var body = [
-    'someone responded to the form: ', data.formTitle, '\n',
-    '\n',
-    'they were sent this email:\n',
-    '\n',
-    data.emailBody
-  ].join('');
-  MailApp.sendEmail(recipient, subject, body);
-}
-
 function emailConfirmationToRespondent(e) {
   var form = e.source;
   var formResponse = e.response;
   var data = collectData(form, formResponse);
-  emailRespondent(data);
   emailFormCreator(data);
+  emailRespondent(data);
 }
 
