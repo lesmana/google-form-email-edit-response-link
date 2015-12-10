@@ -6,14 +6,6 @@ To Public License, Version 2, as published by Sam Hocevar. See
 http://www.wtfpl.net/ for more details.
 */
 
-function onOpen() {
-  var form = FormApp.getActiveForm();
-  ScriptApp.newTrigger('emailConfirmationToRespondent')
-      .forForm(form)
-      .onFormSubmit()
-      .create();
-}
-
 function processTitleResponse(formResponse) {
   var respondentEmail = '';
   var titleResponseList = [];
